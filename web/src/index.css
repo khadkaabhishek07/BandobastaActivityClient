@@ -7,5 +7,6 @@ html, body, #root {
   height: 100%;
 }
 body {
-  @apply bg-white text-slate-800;
+  background-color: #ffffff;
+  color: rgb(30 41 59);
 }

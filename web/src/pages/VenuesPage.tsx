@@ -1,13 +1,9 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { api } from '../services/api'
+import type { VenueResponse } from '../types/dto'
 
-type Venue = {
-  id: number
-  name: string
-  city?: string
-  description?: string
-}
+type Venue = VenueResponse
 
 function VenuesPage() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -17,8 +13,10 @@ function VenuesPage() {
 
   const city = searchParams.get('city') || ''
   const name = searchParams.get('name') || ''
+  const minPrice = searchParams.get('minPrice') || ''
+  const maxPrice = searchParams.get('maxPrice') || ''
 
-  const query = useMemo(() => ({ city, name }), [city, name])
+  const query = useMemo(() => ({ city, name, minPrice, maxPrice }), [city, name, minPrice, maxPrice])
 
   useEffect(() => {
     let ignore = false
@@ -29,6 +27,8 @@ function VenuesPage() {
         const qs = new URLSearchParams()
         if (query.city) qs.set('city', query.city)
         if (query.name) qs.set('name', query.name)
+        if (query.minPrice) qs.set('minPrice', query.minPrice)
+        if (query.maxPrice) qs.set('maxPrice', query.maxPrice)
         const endpoint = qs.toString() ? `/api/venues/search?${qs}` : '/api/venues'
         const { data } = await api.get<Venue[]>(endpoint)
         if (!ignore) setVenues(data)
@@ -45,7 +45,7 @@ function VenuesPage() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
       <h1 className="text-2xl font-semibold mb-4">Venues</h1>
-      <div className="mb-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
+      <div className="mb-6 grid grid-cols-1 sm:grid-cols-4 gap-3">
         <input
           value={name}
           onChange={(e) => setSearchParams(prev => {
@@ -64,6 +64,26 @@ function VenuesPage() {
             return next
           })}
           placeholder="City"
+          className="border rounded-md px-3 py-2"
+        />
+        <input
+          value={minPrice}
+          onChange={(e) => setSearchParams(prev => {
+            const next = new URLSearchParams(prev)
+            if (e.target.value) next.set('minPrice', e.target.value); else next.delete('minPrice')
+            return next
+          })}
+          placeholder="Min Price"
+          className="border rounded-md px-3 py-2"
+        />
+        <input
+          value={maxPrice}
+          onChange={(e) => setSearchParams(prev => {
+            const next = new URLSearchParams(prev)
+            if (e.target.value) next.set('maxPrice', e.target.value); else next.delete('maxPrice')
+            return next
+          })}
+          placeholder="Max Price"
           className="border rounded-md px-3 py-2"
         />
       </div>
