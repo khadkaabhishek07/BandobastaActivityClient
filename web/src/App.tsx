@@ -1,6 +1,8 @@
 import { Outlet } from 'react-router-dom'
+import { useAuth } from './context/AuthContext'
 
 function App() {
+  const { token, logout } = useAuth()
   return (
     <div className="min-h-dvh flex flex-col">
       <header className="border-b border-slate-200">
@@ -10,8 +12,12 @@ function App() {
           </a>
           <nav className="flex items-center gap-4">
             <a href="/venues" className="hover:text-brand-accent">Venues</a>
-            <a href="/bookings" className="hover:text-brand-accent">Bookings</a>
-            <a href="/login" className="rounded-full px-4 py-1.5 bg-brand text-white">Login</a>
+            {token && <a href="/bookings" className="hover:text-brand-accent">My Bookings</a>}
+            {!token ? (
+              <a href="/login" className="rounded-full px-4 py-1.5 bg-brand text-white">Login</a>
+            ) : (
+              <button onClick={logout} className="rounded-full px-4 py-1.5 border">Logout</button>
+            )}
           </nav>
         </div>
       </header>

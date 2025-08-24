@@ -9,6 +9,7 @@ import VenueDetailPage from './pages/VenueDetailPage.tsx'
 import LoginPage from './pages/LoginPage.tsx'
 import BookingsPage from './pages/BookingsPage.tsx'
 import ProtectedRoute from './components/ProtectedRoute.tsx'
+import { AuthProvider } from './context/AuthContext.tsx'
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>,
 )
