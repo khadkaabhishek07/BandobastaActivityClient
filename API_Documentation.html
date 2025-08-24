@@ -1,0 +1,2102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bandobasta Activity Booking API Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 10px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .nav {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .nav a {
+            text-decoration: none;
+            color: #667eea;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: 2px solid #667eea;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav a:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        .section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .section h2 {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .section h3 {
+            color: #555;
+            margin: 25px 0 15px 0;
+            font-size: 1.4rem;
+        }
+        
+        .endpoint {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .method {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-right: 15px;
+        }
+        
+        .get { background: #28a745; color: white; }
+        .post { background: #007bff; color: white; }
+        .put { background: #ffc107; color: black; }
+        .delete { background: #dc3545; color: white; }
+        
+        .url {
+            font-family: 'Courier New', monospace;
+            background: #e9ecef;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            color: #495057;
+        }
+        
+        .auth-required {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-weight: 600;
+        }
+        
+        .auth-not-required {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-weight: 600;
+        }
+        
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .code-block pre {
+            margin: 0;
+        }
+        
+        .example {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .example h4 {
+            color: #495057;
+            margin-bottom: 10px;
+        }
+        
+        .role-section {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .role-section h3 {
+            color: white;
+            border-bottom: 2px solid white;
+        }
+        
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .table th, .table td {
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .table th {
+            background: #667eea;
+            color: white;
+        }
+        
+        .table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        
+        .info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        
+        .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        
+        .toc {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .toc ul {
+            list-style: none;
+        }
+        
+        .toc li {
+            margin: 8px 0;
+        }
+        
+        .toc a {
+            text-decoration: none;
+            color: #495057;
+            font-weight: 500;
+        }
+        
+        .toc a:hover {
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏟️ Bandobasta Activity Booking API</h1>
+            <p>Comprehensive API Documentation for Frontend Developers</p>
+        </div>
+
+        <div class="nav">
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#authentication">Authentication</a></li>
+                <li><a href="#endpoints">API Endpoints</a></li>
+                <li><a href="#dto">Data Models</a></li>
+                <li><a href="#roles">Role-Based Access</a></li>
+                <li><a href="#frontend">Frontend Integration</a></li>
+                <li><a href="#examples">Examples</a></li>
+            </ul>
+        </div>
+
+        <div class="section" id="overview">
+            <h2>📋 Overview</h2>
+            <p>This API provides a comprehensive venue booking system for various activities like football, swimming, rock climbing, fun parks, etc. The system supports:</p>
+            <ul>
+                <li>🎯 <strong>Multi-venue management</strong> with different activities</li>
+                <li>💰 <strong>Flexible pricing</strong> with categories (Adult/Child)</li>
+                <li>📅 <strong>Time slot booking</strong> with availability checking</li>
+                <li>💳 <strong>Payment processing</strong> with partial payment support</li>
+                <li>👥 <strong>Role-based access control</strong> (Admin, Owner, User)</li>
+                <li>🔐 <strong>External authentication</strong> integration</li>
+            </ul>
+            
+            <div class="info">
+                <strong>Base URL:</strong> Your .NET API base URL (e.g., https://your-api.com)
+                <br><strong>External Auth URL:</strong> https://bandobasta-latest-5u7o.onrender.com/bandobasta/api/v1
+            </div>
+        </div>
+
+        <div class="section" id="authentication">
+            <h2>🔐 Authentication System</h2>
+            
+            <h3>External Authentication Flow</h3>
+            <p>This system uses external authentication from your Spring Boot service. Here's how it works:</p>
+            
+            <div class="endpoint">
+                <h4>1. Login to Get Token</h4>
+                <div class="method post">POST</div>
+                <div class="url">https://bandobasta-latest-5u7o.onrender.com/bandobasta/api/v1/user/authenticate/login</div>
+                
+                <div class="example">
+                    <h4>Request Body:</h4>
+                    <div class="code-block">
+<pre>{
+  "identifier": "admin",
+  "password": "Nepal@123"
+}</pre>
+                    </div>
+                    
+                    <h4>Response:</h4>
+                    <div class="code-block">
+<pre>{
+  "code": "200",
+  "message": "SUCCESS",
+  "data": {
+    "username": "admin",
+    "id": "3",
+    "type": "Bearer",
+    "accessToken": "eyJhbGciOiJIUzI1NiJ9...",
+    "roles": ["ROLE_ADMIN"]
+  }
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <h4>2. Get User Details</h4>
+                <div class="method get">GET</div>
+                <div class="url">https://bandobasta-latest-5u7o.onrender.com/bandobasta/api/v1/user/{id}</div>
+                
+                <div class="example">
+                    <h4>Response:</h4>
+                    <div class="code-block">
+<pre>{
+  "code": "200",
+  "message": "SUCCESS",
+  "data": {
+    "id": 3,
+    "firstName": "Bandobasta",
+    "lastName": "Admin",
+    "middleName": "",
+    "email": "admin@bandobasta.com",
+    "phoneNumber": "9811314784",
+    "username": "admin",
+    "dateOfBirth": "",
+    "role": null
+  }
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Token Usage</h3>
+            <p>Once you have the access token, include it in the Authorization header for protected endpoints:</p>
+            <div class="code-block">
+<pre>Authorization: Bearer eyJhbGciOiJIUzI1NiJ9...</pre>
+            </div>
+
+            <div class="warning">
+                <strong>Important:</strong> Store the token securely (localStorage, sessionStorage, or secure cookie) and include it in all authenticated requests.
+            </div>
+        </div>
+
+        <div class="section" id="endpoints">
+            <h2>🚀 API Endpoints</h2>
+            
+            <div class="toc">
+                <h3>Quick Navigation</h3>
+                <ul>
+                    <li><a href="#venues">🏟️ Venues</a></li>
+                    <li><a href="#venue-activities">🎯 Venue Activities</a></li>
+                    <li><a href="#bookings">📅 Bookings</a></li>
+                    <li><a href="#payments">💳 Payments</a></li>
+                    <li><a href="#availability">⏰ Availability</a></li>
+                    <li><a href="#auth">🔐 Authentication</a></li>
+                </ul>
+            </div>
+
+            <div id="venues">
+                <h3>🏟️ Venues Management</h3>
+                
+                <div class="endpoint">
+                    <h4>Get All Venues</h4>
+                    <div class="method get">GET</div>
+                    <div class="url">/api/venues</div>
+                    <div class="auth-not-required">🔓 No Authentication Required</div>
+                    
+                    <div class="example">
+                        <h4>Response:</h4>
+                        <div class="code-block">
+<pre>{
+  "success": true,
+  "message": "Venues retrieved successfully",
+  "data": [
+    {
+      "id": 1,
+      "name": "Football Ground A",
+      "address": "Kathmandu, Nepal",
+      "city": "Kathmandu",
+      "latitude": 27.7172,
+      "longitude": 85.3240,
+      "contactPhone": "+977-1-1234567",
+      "contactEmail": "info@footballground.com",
+      "description": "Professional football ground with turf",
+      "isActive": true,
+      "createdAt": "2024-01-15T10:00:00Z",
+      "updatedAt": "2024-01-15T10:00:00Z",
+      "bookingFee": 100.00,
+      "minimumPayment": 50.00,
+      "ownerId": 3
+    }
+  ]
+}</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <h4>Get Venue by ID</h4>
+                    <div class="method get">GET</div>
+                    <div class="url">/api/venues/{id}</div>
+                    <div class="auth-not-required">🔓 No Authentication Required</div>
+                </div>
+
+                <div class="endpoint">
+                    <h4>Search Venues</h4>
+                    <div class="method get">GET</div>
+                    <div class="url">/api/venues/search?city={city}&name={name}&minPrice={minPrice}&maxPrice={maxPrice}</div>
+                    <div class="auth-not-required">🔓 No Authentication Required</div>
+                </div>
+
+                <div class="endpoint">
+                    <h4>Create Venue</h4>
+                    <div class="method post">POST</div>
+                    <div class="url">/api/venues</div>
+                    <div class="auth-required">🔒 Authentication Required (Admin/Owner)</div>
+                    
+                    <div class="example">
+                        <h4>Request Body:</h4>
+                        <div class="code-block">
+<pre>{
+  "name": "Swimming Pool Complex",
+  "address": "Lalitpur, Nepal",
+  "city": "Lalitpur",
+  "latitude": 27.6667,
+  "longitude": 85.3333,
+  "contactPhone": "+977-1-9876543",
+  "contactEmail": "info@swimmingpool.com",
+  "description": "Olympic size swimming pool with training facilities",
+  "bookingFee": 200.00,
+  "minimumPayment": 100.00
+}</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <h4>Update Venue</h4>
+                    <div class="method put">PUT</div>
+                    <div class="url">/api/venues/{id}</div>
+                    <div class="auth-required">🔒 Authentication Required (Owner/Admin)</div>
+                </div>
+
+                <div class="endpoint">
+                    <h4>Delete Venue</h4>
+                    <div class="method delete">DELETE</div>
+                    <div class="url">/api/venues/{id}</div>
+                    <div class="auth-required">🔒 Authentication Required (Owner/Admin)</div>
+                </div>
+
+                <div class="endpoint">
+                    <h4>Get My Venues</h4>
+                    <div class="method get">GET</div>
+                    <div class="url">/api/venues/my-venues</div>
+                    <div class="auth-required">🔒 Authentication Required (Owner/Admin)</div>
+                </div>
+
+                <div class="endpoint">
+                    <h4>Create Venue Resource</h4>
+                    <div class="method post">POST</div>
+                    <div class="url">/api/venues/{id}/resources</div>
+                    <div class="auth-required">🔒 Authentication Required (Owner/Admin)</div>
+                    
+                    <div class="example">
+                        <h4>Request Body:</h4>
+                        <div class="code-block">
+<pre>{
+  "name": "Turf 1",
+  "description": "Professional football turf",
+  "capacity": 22,
+  "isActive": true
+}</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <h4>Get Venue Resources</h4>
+                    <div class="method get">GET</div>
+                    <div class="url">/api/venues/{id}/resources</div>
+                    <div class="auth-not-required">🔓 No Authentication Required</div>
+                </div>
+
+                <div class="endpoint">
+                    <h4>Get Venue Resource</h4>
+                    <div class="method get">GET</div>
+                    <div class="url">/api/venues/{id}/resources/{resourceId}</div>
+                    <div class="auth-not-required">🔓 No Authentication Required</div>
+                </div>
+
+                <div class="endpoint">
+                    <h4>Update Venue Resource</h4>
+                    <div class="method put">PUT</div>
+                    <div class="url">/api/venues/{id}/resources/{resourceId}</div>
+                    <div class="auth-required">🔒 Authentication Required (Owner/Admin)</div>
+                </div>
+
+                <div class="endpoint">
+                    <h4>Delete Venue Resource</h4>
+                    <div class="method delete">DELETE</div>
+                    <div class="url">/api/venues/{id}/resources/{resourceId}</div>
+                    <div class="auth-required">🔒 Authentication Required (Owner/Admin)</div>
+                </div>
+
+                <div class="endpoint">
+                    <h4>Set Operating Hours</h4>
+                    <div class="method post">POST</div>
+                    <div class="url">/api/venues/{id}/operating-hours</div>
+                    <div class="auth-required">🔒 Authentication Required (Owner/Admin)</div>
+                    
+                    <div class="example">
+                        <h4>Request Body:</h4>
+                        <div class="code-block">
+<pre>[
+  {
+    "dayOfWeek": 1,
+    "openingTime": "06:00:00",
+    "closingTime": "22:00:00",
+    "isClosed": false
+  },
+  {
+    "dayOfWeek": 2,
+    "openingTime": "06:00:00",
+    "closingTime": "22:00:00",
+    "isClosed": false
+  }
+]</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <h4>Get Operating Hours</h4>
+                    <div class="method get">GET</div>
+                    <div class="url">/api/venues/{id}/operating-hours</div>
+                    <div class="auth-not-required">🔓 No Authentication Required</div>
+                </div>
+            </div>
+
+            <div id="venue-activities">
+                <h3>🎯 Venue Activities Management</h3>
+                
+                <div class="endpoint">
+                    <h4>Create Venue Activity</h4>
+                    <div class="method post">POST</div>
+                    <div class="url">/api/venues/{venueId}/activities</div>
+                    <div class="auth-required">🔒 Authentication Required (Owner/Admin)</div>
+                    
+                    <div class="example">
+                        <h4>Request Body:</h4>
+                        <div class="code-block">
+<pre>{
+  "venueId": 1,
+  "name": "Football Training",
+  "description": "Professional football training sessions",
+  "basePrice": 1500.00,
+  "isActive": true
+}</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <h4>Get Venue Activities</h4>
+                    <div class="method get">GET</div>
+                    <div class="url">/api/venues/{venueId}/activities</div>
+                    <div class="auth-not-required">🔓 No Authentication Required</div>
+                </div>
+
+                <div class="endpoint">
+                    <h4>Get Venue Activity</h4>
+                    <div class="method get">GET</div>
+                    <div class="url">/api/venues/{venueId}/activities/{id}</div>
+                    <div class="auth-not-required">🔓 No Authentication Required</div>
+                </div>
+
+                <div class="endpoint">
+                    <h4>Update Venue Activity</h4>
+                    <div class="method put">PUT</div>
+                    <div class="url">/api/venues/{venueId}/activities/{id}</div>
+                    <div class="auth-required">🔒 Authentication Required (Owner/Admin)</div>
+                </div>
+
+                <div class="endpoint">
+                    <h4>Delete Venue Activity</h4>
+                    <div class="method delete">DELETE</div>
+                    <div class="url">/api/venues/{venueId}/activities/{id}</div>
+                    <div class="auth-required">🔒 Authentication Required (Owner/Admin)</div>
+                </div>
+
+                <div class="endpoint">
+                    <h4>Create Pricing Category</h4>
+                    <div class="method post">POST</div>
+                    <div class="url">/api/venues/activities/{activityId}/pricing-categories</div>
+                    <div class="auth-required">🔒 Authentication Required (Owner/Admin)</div>
+                    
+                    <div class="example">
+                        <h4>Request Body:</h4>
+                        <div class="code-block">
+<pre>{
+  "name": "Adult",
+  "price": 1500.00,
+  "description": "Adult pricing for football training"
+}</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <h4>Get Pricing Categories</h4>
+                    <div class="method get">GET</div>
+                    <div class="url">/api/venues/activities/{activityId}/pricing-categories</div>
+                    <div class="auth-not-required">🔓 No Authentication Required</div>
+                </div>
+
+                <div class="endpoint">
+                    <h4>Delete Pricing Category</h4>
+                    <div class="method delete">DELETE</div>
+                    <div class="url">/api/venues/pricing-categories/{id}</div>
+                    <div class="auth-required">🔒 Authentication Required (Owner/Admin)</div>
+                </div>
+            </div>
+
+            <div id="bookings">
+                <h3>📅 Bookings Management</h3>
+                
+                <div class="endpoint">
+                    <h4>Create Booking</h4>
+                    <div class="method post">POST</div>
+                    <div class="url">/api/bookings</div>
+                    <div class="auth-required">🔒 Authentication Required</div>
+                    
+                    <div class="example">
+                        <h4>Request Body:</h4>
+                        <div class="code-block">
+<pre>{
+  "venueResourceId": 1,
+  "venueActivityId": 1,
+  "bookingDate": "2024-01-20",
+  "startTime": "10:00:00",
+  "endTime": "12:00:00",
+  "participants": [
+    {
+      "pricingCategoryId": 1,
+      "quantity": 2
+    },
+    {
+      "pricingCategoryId": 2,
+      "quantity": 1
+    }
+  ]
+}</pre>
+                        </div>
+                        
+                        <h4>Response:</h4>
+                        <div class="code-block">
+<pre>{
+  "success": true,
+  "message": "Booking created successfully",
+  "data": {
+    "id": 1,
+    "userId": 3,
+    "firstName": "Bandobasta",
+    "lastName": "Admin",
+    "userPhone": "9811314784",
+    "venueResourceId": 1,
+    "venueActivityId": 1,
+    "bookingDate": "2024-01-20",
+    "startTime": "10:00:00",
+    "endTime": "12:00:00",
+    "totalHours": 2,
+    "totalAmount": 4500.00,
+    "amountPaid": 0.00,
+    "minimumPaymentRequired": 50.00,
+    "bookingStatus": "Pending",
+    "paymentStatus": "Pending",
+    "paymentMethod": null,
+    "paymentReference": null,
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-01-15T10:00:00Z",
+    "pricingDetails": [
+      {
+        "pricingCategoryId": 1,
+        "categoryName": "Adult",
+        "quantity": 2,
+        "unitPrice": 1500.00,
+        "totalPrice": 3000.00
+      },
+      {
+        "pricingCategoryId": 2,
+        "categoryName": "Child",
+        "quantity": 1,
+        "unitPrice": 750.00,
+        "totalPrice": 750.00
+      }
+    ]
+  }
+}</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <h4>Get Booking by ID</h4>
+                    <div class="method get">GET</div>
+                    <div class="url">/api/bookings/{id}</div>
+                    <div class="auth-required">🔒 Authentication Required</div>
+                </div>
+
+                <div class="endpoint">
+                    <h4>Get User Bookings</h4>
+                    <div class="method get">GET</div>
+                    <div class="url">/api/bookings/user/{userId}</div>
+                    <div class="auth-required">🔒 Authentication Required</div>
+                </div>
+
+                <div class="endpoint">
+                    <h4>Get Venue Bookings</h4>
+                    <div class="method get">GET</div>
+                    <div class="url">/api/bookings/venue/{venueId}?date={date}</div>
+                    <div class="auth-required">🔒 Authentication Required</div>
+                </div>
+
+                <div class="endpoint">
+                    <h4>Cancel Booking</h4>
+                    <div class="method post">POST</div>
+                    <div class="url">/api/bookings/{id}/cancel?reason={reason}</div>
+                    <div class="auth-required">🔒 Authentication Required</div>
+                </div>
+
+                <div class="endpoint">
+                    <h4>Confirm Booking</h4>
+                    <div class="method post">POST</div>
+                    <div class="url">/api/bookings/{id}/confirm</div>
+                    <div class="auth-required">🔒 Authentication Required</div>
+                </div>
+
+                <div class="endpoint">
+                    <h4>Update Booking Status</h4>
+                    <div class="method put">PUT</div>
+                    <div class="url">/api/bookings/{id}/status?status={status}</div>
+                    <div class="auth-required">🔒 Authentication Required</div>
+                </div>
+            </div>
+
+            <div id="payments">
+                <h3>💳 Payments Management</h3>
+                
+                <div class="endpoint">
+                    <h4>Process Payment</h4>
+                    <div class="method post">POST</div>
+                    <div class="url">/api/payments/process</div>
+                    <div class="auth-required">🔒 Authentication Required</div>
+                    
+                    <div class="example">
+                        <h4>Request Body:</h4>
+                        <div class="code-block">
+<pre>{
+  "bookingId": 1,
+  "paymentMethod": "eSewa",
+  "paymentReference": "ESEWA_REF_12345",
+  "amount": 100.00
+}</pre>
+                        </div>
+                        
+                        <h4>Response:</h4>
+                        <div class="code-block">
+<pre>{
+  "success": true,
+  "message": "Payment processed successfully",
+  "data": {
+    "id": 1,
+    "bookingId": 1,
+    "paymentMethod": "eSewa",
+    "amount": 100.00,
+    "paymentReference": "ESEWA_REF_12345",
+    "status": "Paid",
+    "paymentDate": "2024-01-15T10:00:00Z",
+    "createdAt": "2024-01-15T10:00:00Z"
+  }
+}</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <h4>Get Payment by ID</h4>
+                    <div class="method get">GET</div>
+                    <div class="url">/api/payments/{id}</div>
+                    <div class="auth-required">🔒 Authentication Required</div>
+                </div>
+
+                <div class="endpoint">
+                    <h4>Get Booking Payments</h4>
+                    <div class="method get">GET</div>
+                    <div class="url">/api/payments/booking/{bookingId}</div>
+                    <div class="auth-required">🔒 Authentication Required</div>
+                </div>
+
+                <div class="endpoint">
+                    <h4>Verify Payment</h4>
+                    <div class="method post">POST</div>
+                    <div class="url">/api/payments/verify?paymentReference={reference}</div>
+                    <div class="auth-required">🔒 Authentication Required</div>
+                </div>
+
+                <div class="endpoint">
+                    <h4>Refund Payment</h4>
+                    <div class="method post">POST</div>
+                    <div class="url">/api/payments/{id}/refund?amount={amount}</div>
+                    <div class="auth-required">🔒 Authentication Required</div>
+                </div>
+            </div>
+
+            <div id="availability">
+                <h3>⏰ Availability Management</h3>
+                
+                <div class="endpoint">
+                    <h4>Check Availability</h4>
+                    <div class="method get">GET</div>
+                    <div class="url">/api/availability?venueId={venueId}&venueResourceId={resourceId}&venueActivityId={activityId}&date={date}&startTime={startTime}&endTime={endTime}&durationHours={hours}</div>
+                    <div class="auth-not-required">🔓 No Authentication Required</div>
+                    
+                    <div class="example">
+                        <h4>Response:</h4>
+                        <div class="code-block">
+<pre>{
+  "success": true,
+  "message": "Availability check completed",
+  "data": [
+    {
+      "venueResourceId": 1,
+      "resourceName": "Turf 1",
+      "date": "2024-01-20",
+      "availableSlots": [
+        {
+          "startTime": "10:00:00",
+          "endTime": "11:00:00",
+          "pricePerHour": 1500.00,
+          "isAvailable": true
+        },
+        {
+          "startTime": "11:00:00",
+          "endTime": "12:00:00",
+          "pricePerHour": 1500.00,
+          "isAvailable": true
+        }
+      ]
+    }
+  ]
+}</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <h4>Get Available Time Slots</h4>
+                    <div class="method get">GET</div>
+                    <div class="url">/api/availability/resource/{resourceId}/slots?date={date}&durationHours={hours}</div>
+                    <div class="auth-not-required">🔓 No Authentication Required</div>
+                </div>
+
+                <div class="endpoint">
+                    <h4>Set Resource Availability</h4>
+                    <div class="method post">POST</div>
+                    <div class="url">/api/availability/resource/{resourceId}/availability</div>
+                    <div class="auth-required">🔒 Authentication Required (Owner/Admin)</div>
+                    
+                    <div class="example">
+                        <h4>Request Body:</h4>
+                        <div class="code-block">
+<pre>{
+  "date": "2024-01-20",
+  "startTime": "14:00:00",
+  "endTime": "16:00:00",
+  "isAvailable": false,
+  "reason": "Maintenance"
+}</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <h4>Verify Time Slot</h4>
+                    <div class="method get">GET</div>
+                    <div class="url">/api/availability/verify?resourceId={resourceId}&date={date}&startTime={startTime}&endTime={endTime}</div>
+                    <div class="auth-not-required">🔓 No Authentication Required</div>
+                </div>
+            </div>
+
+            <div id="auth">
+                <h3>🔐 Authentication Endpoints</h3>
+                
+                <div class="endpoint">
+                    <h4>Login</h4>
+                    <div class="method post">POST</div>
+                    <div class="url">/api/auth/login</div>
+                    <div class="auth-not-required">🔓 No Authentication Required</div>
+                    
+                    <div class="example">
+                        <h4>Request Body:</h4>
+                        <div class="code-block">
+<pre>{
+  "identifier": "admin",
+  "password": "Nepal@123"
+}</pre>
+                        </div>
+                        
+                        <h4>Response:</h4>
+                        <div class="code-block">
+<pre>{
+  "code": "200",
+  "message": "SUCCESS",
+  "data": {
+    "username": "admin",
+    "id": "3",
+    "type": "Bearer",
+    "accessToken": "eyJhbGciOiJIUzI1NiJ9...",
+    "roles": ["ROLE_ADMIN"]
+  }
+}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="dto">
+            <h2>📊 Data Models (DTOs)</h2>
+            
+            <h3>Request DTOs</h3>
+            
+            <div class="endpoint">
+                <h4>CreateVenueRequest</h4>
+                <div class="code-block">
+<pre>{
+  "name": "string (required, max 255 chars)",
+  "address": "string (required, max 500 chars)",
+  "city": "string (required, max 100 chars)",
+  "latitude": "decimal? (optional)",
+  "longitude": "decimal? (optional)",
+  "contactPhone": "string? (optional, phone format)",
+  "contactEmail": "string? (optional, email format)",
+  "description": "string? (optional)",
+  "bookingFee": "decimal (required, min 0)",
+  "minimumPayment": "decimal (required, min 0)"
+}</pre>
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <h4>CreateVenueActivityRequest</h4>
+                <div class="code-block">
+<pre>{
+  "venueId": "int (required)",
+  "name": "string (required, max 255 chars)",
+  "description": "string? (optional, max 1000 chars)",
+  "basePrice": "decimal (required, min 0)",
+  "isActive": "bool (default: true)"
+}</pre>
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <h4>CreateBookingRequest</h4>
+                <div class="code-block">
+<pre>{
+  "venueResourceId": "int (required)",
+  "venueActivityId": "int (required)",
+  "bookingDate": "DateOnly (required, format: YYYY-MM-DD)",
+  "startTime": "TimeSpan (required, format: HH:MM:SS)",
+  "endTime": "TimeSpan (required, format: HH:MM:SS)",
+  "participants": "List<BookingParticipantRequest> (required)"
+}
+
+BookingParticipantRequest:
+{
+  "pricingCategoryId": "int (required)",
+  "quantity": "int (required, min 1)"
+}</pre>
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <h4>ProcessPaymentRequest</h4>
+                <div class="code-block">
+<pre>{
+  "bookingId": "int (required)",
+  "paymentMethod": "string (required)",
+  "paymentReference": "string (required)",
+  "amount": "decimal (required, min 0.01)"
+}</pre>
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <h4>AvailabilityRequest</h4>
+                <div class="code-block">
+<pre>{
+  "venueId": "int (required)",
+  "venueResourceId": "int (required)",
+  "venueActivityId": "int (required)",
+  "date": "DateOnly (required, format: YYYY-MM-DD)",
+  "startTime": "TimeSpan? (optional, format: HH:MM:SS)",
+  "endTime": "TimeSpan? (optional, format: HH:MM:SS)",
+  "durationHours": "int (default: 1)"
+}</pre>
+                </div>
+            </div>
+
+            <h3>Response DTOs</h3>
+            
+            <div class="endpoint">
+                <h4>ApiResponse&lt;T&gt;</h4>
+                <div class="code-block">
+<pre>{
+  "success": "bool",
+  "message": "string",
+  "data": "T? (generic type)",
+  "errors": "List<string>"
+}</pre>
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <h4>VenueResponse</h4>
+                <div class="code-block">
+<pre>{
+  "id": "int",
+  "name": "string",
+  "address": "string",
+  "city": "string",
+  "latitude": "decimal?",
+  "longitude": "decimal?",
+  "contactPhone": "string?",
+  "contactEmail": "string?",
+  "description": "string?",
+  "isActive": "bool",
+  "createdAt": "DateTime",
+  "updatedAt": "DateTime",
+  "bookingFee": "decimal",
+  "minimumPayment": "decimal",
+  "ownerId": "int"
+}</pre>
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <h4>VenueActivityResponse</h4>
+                <div class="code-block">
+<pre>{
+  "id": "int",
+  "venueId": "int",
+  "name": "string",
+  "description": "string?",
+  "basePrice": "decimal",
+  "isActive": "bool"
+}</pre>
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <h4>VenueResourceResponse</h4>
+                <div class="code-block">
+<pre>{
+  "id": "int",
+  "venueId": "int",
+  "name": "string",
+  "description": "string?",
+  "capacity": "int?",
+  "isActive": "bool"
+}</pre>
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <h4>BookingResponse</h4>
+                <div class="code-block">
+<pre>{
+  "id": "int",
+  "userId": "int",
+  "firstName": "string",
+  "lastName": "string",
+  "userPhone": "string",
+  "venueResourceId": "int",
+  "venueActivityId": "int",
+  "bookingDate": "DateOnly",
+  "startTime": "TimeSpan",
+  "endTime": "TimeSpan",
+  "totalHours": "int",
+  "totalAmount": "decimal",
+  "amountPaid": "decimal",
+  "minimumPaymentRequired": "decimal",
+  "bookingStatus": "BookingStatus",
+  "paymentStatus": "PaymentStatus",
+  "paymentMethod": "string?",
+  "paymentReference": "string?",
+  "createdAt": "DateTime",
+  "updatedAt": "DateTime",
+  "pricingDetails": "List<BookingPricingDetailResponse>"
+}</pre>
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <h4>PaymentResponse</h4>
+                <div class="code-block">
+<pre>{
+  "id": "int",
+  "bookingId": "int",
+  "paymentMethod": "string",
+  "amount": "decimal",
+  "paymentReference": "string",
+  "status": "string",
+  "paymentDate": "DateTime?",
+  "createdAt": "DateTime"
+}</pre>
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <h4>AvailabilityResponse</h4>
+                <div class="code-block">
+<pre>{
+  "venueResourceId": "int",
+  "resourceName": "string",
+  "date": "DateOnly",
+  "availableSlots": "List<TimeSlotResponse>"
+}
+
+TimeSlotResponse:
+{
+  "startTime": "TimeSpan",
+  "endTime": "TimeSpan",
+  "pricePerHour": "decimal",
+  "isAvailable": "bool"
+}</pre>
+                </div>
+            </div>
+
+            <h3>Enums</h3>
+            
+            <div class="endpoint">
+                <h4>BookingStatus</h4>
+                <div class="code-block">
+<pre>Pending = 0,        // No payment made yet
+Booked = 1,         // Minimum payment made
+FullyPaid = 2,      // Full amount paid
+Cancelled = 3,      // Booking cancelled
+Completed = 4,      // Activity completed
+NoShow = 5          // User didn't show up</pre>
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <h4>PaymentStatus</h4>
+                <div class="code-block">
+<pre>Pending = 0,       // Payment not processed
+Paid = 1,           // Payment successful
+Failed = 2,         // Payment failed
+Refunded = 3        // Payment refunded</pre>
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <h4>DayOfWeek</h4>
+                <div class="code-block">
+<pre>Sunday = 0,
+Monday = 1,
+Tuesday = 2,
+Wednesday = 3,
+Thursday = 4,
+Friday = 5,
+Saturday = 6</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="roles">
+            <h2>👥 Role-Based Access Control</h2>
+            
+            <div class="role-section">
+                <h3>🔴 ROLE_ADMIN</h3>
+                <p><strong>Super User Access</strong> - Can manage everything in the system</p>
+                
+                <h4>✅ Allowed Operations:</h4>
+                <ul>
+                    <li>Create, edit, delete any venue</li>
+                    <li>Manage all venue activities and resources</li>
+                    <li>View all bookings across all venues</li>
+                    <li>Manage all users and their permissions</li>
+                    <li>Access all financial reports and analytics</li>
+                    <li>Set system-wide configurations</li>
+                </ul>
+                
+                <h4>🔑 Navigation Menu Options:</h4>
+                <ul>
+                    <li><strong>Dashboard</strong> - System overview with all venues</li>
+                    <li><strong>Venues</strong> - Manage all venues</li>
+                    <li><strong>Activities</strong> - Manage all activities</li>
+                    <li><strong>Bookings</strong> - View all bookings</li>
+                    <li><strong>Payments</strong> - All payment management</li>
+                    <li><strong>Users</strong> - User management</li>
+                    <li><strong>Reports</strong> - Financial and analytics</li>
+                    <li><strong>Settings</strong> - System configuration</li>
+                </ul>
+            </div>
+
+            <div class="role-section">
+                <h3>🟡 ROLE_OWNER</h3>
+                <p><strong>Venue Owner Access</strong> - Can manage only their own venues</p>
+                
+                <h4>✅ Allowed Operations:</h4>
+                <ul>
+                    <li>Create, edit, delete their own venues</li>
+                    <li>Manage their venue activities and resources</li>
+                    <li>View bookings for their venues only</li>
+                    <li>Set operating hours for their venues</li>
+                    <li>Manage pricing categories for their activities</li>
+                    <li>View financial reports for their venues</li>
+                </ul>
+                
+                <h4>🔑 Navigation Menu Options:</h4>
+                <ul>
+                    <li><strong>Dashboard</strong> - Overview of their venues</li>
+                    <li><strong>My Venues</strong> - Manage owned venues</li>
+                    <li><strong>Activities</strong> - Manage venue activities</li>
+                    <li><strong>Bookings</strong> - View venue bookings</li>
+                    <li><strong>Payments</strong> - Payment tracking</li>
+                    <li><strong>Reports</strong> - Venue performance</li>
+                    <li><strong>Settings</strong> - Venue configuration</li>
+                </ul>
+            </div>
+
+            <div class="role-section">
+                <h3>🟢 Regular Users</h3>
+                <p><strong>Customer Access</strong> - Can book venues and manage their bookings</p>
+                
+                <h4>✅ Allowed Operations:</h4>
+                <ul>
+                    <li>Browse all venues and activities</li>
+                    <li>Check availability and pricing</li>
+                    <li>Create and manage their own bookings</li>
+                    <li>Make payments for their bookings</li>
+                    <li>View their booking history</li>
+                    <li>Cancel their own bookings</li>
+                </ul>
+                
+                <h4>🔑 Navigation Menu Options:</h4>
+                <ul>
+                    <li><strong>Home</strong> - Browse venues</li>
+                    <li><strong>Venues</strong> - Search and view venues</li>
+                    <li><strong>My Bookings</strong> - Manage personal bookings</li>
+                    <li><strong>Payments</strong> - Payment history</li>
+                    <li><strong>Profile</strong> - Personal information</li>
+                </ul>
+            </div>
+
+            <div class="info">
+                <h4>🔐 Authentication Flow:</h4>
+                <ol>
+                    <li>User logs in via external API</li>
+                    <li>System receives user ID and roles</li>
+                    <li>Frontend stores token and user info</li>
+                    <li>Navigation menu updates based on roles</li>
+                    <li>API calls include token for protected endpoints</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="section" id="frontend">
+            <h2>⚛️ Frontend Integration Guide</h2>
+            
+            <h3>🔐 Authentication Setup</h3>
+            
+            <div class="endpoint">
+                <h4>1. Authentication Service</h4>
+                <div class="code-block">
+<pre>// services/authService.js
+class AuthService {
+  constructor() {
+    this.baseUrl = 'https://bandobasta-latest-5u7o.onrender.com/bandobasta/api/v1';
+    this.apiUrl = 'YOUR_DOTNET_API_BASE_URL';
+  }
+
+  async login(identifier, password) {
+    try {
+      const response = await fetch(`${this.baseUrl}/user/authenticate/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ identifier, password })
+      });
+
+      if (!response.ok) {
+        throw new Error('Login failed');
+      }
+
+      const result = await response.json();
+      
+      if (result.code === '200') {
+        // Store token and user info
+        localStorage.setItem('authToken', result.data.accessToken);
+        localStorage.setItem('userId', result.data.id);
+        localStorage.setItem('userRoles', JSON.stringify(result.data.roles));
+        
+        // Get detailed user info
+        await this.getUserDetails(result.data.id);
+        
+        return result.data;
+      } else {
+        throw new Error(result.message || 'Login failed');
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      throw error;
+    }
+  }
+
+  async getUserDetails(userId) {
+    try {
+      const token = localStorage.getItem('authToken');
+      const response = await fetch(`${this.baseUrl}/user/${userId}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to get user details');
+      }
+
+      const result = await response.json();
+      
+      if (result.code === '200') {
+        localStorage.setItem('userDetails', JSON.stringify(result.data));
+        return result.data;
+      }
+    } catch (error) {
+      console.error('Get user details error:', error);
+    }
+  }
+
+  logout() {
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userRoles');
+    localStorage.removeItem('userDetails');
+  }
+
+  isAuthenticated() {
+    return !!localStorage.getItem('authToken');
+  }
+
+  getUserRoles() {
+    const roles = localStorage.getItem('userRoles');
+    return roles ? JSON.parse(roles) : [];
+  }
+
+  hasRole(role) {
+    const roles = this.getUserRoles();
+    return roles.includes(role);
+  }
+
+  getAuthHeaders() {
+    const token = localStorage.getItem('authToken');
+    return {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    };
+  }
+}
+
+export default new AuthService();</pre>
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <h4>2. API Service</h4>
+                <div class="code-block">
+<pre>// services/apiService.js
+import authService from './authService';
+
+class ApiService {
+  constructor() {
+    this.baseUrl = 'YOUR_DOTNET_API_BASE_URL';
+  }
+
+  async request(endpoint, options = {}) {
+    const url = `${this.baseUrl}${endpoint}`;
+    
+    const config = {
+      ...options,
+      headers: {
+        ...options.headers,
+        ...authService.getAuthHeaders()
+      }
+    };
+
+    try {
+      const response = await fetch(url, config);
+      
+      if (!response.ok) {
+        if (response.status === 401) {
+          // Token expired or invalid
+          authService.logout();
+          window.location.href = '/login';
+          return;
+        }
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('API request error:', error);
+      throw error;
+    }
+  }
+
+  // Venues
+  async getVenues() {
+    return this.request('/api/venues');
+  }
+
+  async getVenue(id) {
+    return this.request(`/api/venues/${id}`);
+  }
+
+  async createVenue(venueData) {
+    return this.request('/api/venues', {
+      method: 'POST',
+      body: JSON.stringify(venueData)
+    });
+  }
+
+  async updateVenue(id, venueData) {
+    return this.request(`/api/venues/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(venueData)
+    });
+  }
+
+  async deleteVenue(id) {
+    return this.request(`/api/venues/${id}`, {
+      method: 'DELETE'
+    });
+  }
+
+  async getMyVenues() {
+    return this.request('/api/venues/my-venues');
+  }
+
+  // Bookings
+  async createBooking(bookingData) {
+    return this.request('/api/bookings', {
+      method: 'POST',
+      body: JSON.stringify(bookingData)
+    });
+  }
+
+  async getBooking(id) {
+    return this.request(`/api/bookings/${id}`);
+  }
+
+  async getUserBookings(userId) {
+    return this.request(`/api/bookings/user/${userId}`);
+  }
+
+  async cancelBooking(id, reason) {
+    return this.request(`/api/bookings/${id}/cancel?reason=${encodeURIComponent(reason)}`, {
+      method: 'POST'
+    });
+  }
+
+  // Payments
+  async processPayment(paymentData) {
+    return this.request('/api/payments/process', {
+      method: 'POST',
+      body: JSON.stringify(paymentData)
+    });
+  }
+
+  // Availability
+  async checkAvailability(params) {
+    const queryString = new URLSearchParams(params).toString();
+    return this.request(`/api/availability?${queryString}`);
+  }
+}
+
+export default new ApiService();</pre>
+                </div>
+            </div>
+
+            <h3>🧭 Navigation Menu Implementation</h3>
+            
+            <div class="endpoint">
+                <h4>Navigation Component</h4>
+                <div class="code-block">
+<pre>// components/Navigation.jsx
+import React from 'react';
+import { useAuth } from '../hooks/useAuth';
+
+const Navigation = () => {
+  const { user, isAuthenticated, hasRole, logout } = useAuth();
+
+  const renderMenuItems = () => {
+    if (!isAuthenticated) {
+      return (
+        <>
+          <li><a href="/">Home</a></li>
+          <li><a href="/venues">Venues</a></li>
+          <li><a href="/login">Login</a></li>
+        </>
+      );
+    }
+
+    if (hasRole('ROLE_ADMIN')) {
+      return (
+        <>
+          <li><a href="/admin/dashboard">Dashboard</a></li>
+          <li><a href="/admin/venues">All Venues</a></li>
+          <li><a href="/admin/activities">All Activities</a></li>
+          <li><a href="/admin/bookings">All Bookings</a></li>
+          <li><a href="/admin/payments">Payments</a></li>
+          <li><a href="/admin/users">Users</a></li>
+          <li><a href="/admin/reports">Reports</a></li>
+          <li><a href="/admin/settings">Settings</a></li>
+          <li><button onClick={logout}>Logout</button></li>
+        </>
+      );
+    }
+
+    if (hasRole('ROLE_OWNER')) {
+      return (
+        <>
+          <li><a href="/owner/dashboard">Dashboard</a></li>
+          <li><a href="/owner/venues">My Venues</a></li>
+          <li><a href="/owner/activities">Activities</a></li>
+          <li><a href="/owner/bookings">Bookings</a></li>
+          <li><a href="/owner/payments">Payments</a></li>
+          <li><a href="/owner/reports">Reports</a></li>
+          <li><a href="/owner/settings">Settings</a></li>
+          <li><button onClick={logout}>Logout</button></li>
+        </>
+      );
+    }
+
+    // Regular user
+    return (
+      <>
+        <li><a href="/">Home</a></li>
+        <li><a href="/venues">Venues</a></li>
+        <li><a href="/my-bookings">My Bookings</a></li>
+        <li><a href="/payments">Payments</a></li>
+        <li><a href="/profile">Profile</a></li>
+        <li><button onClick={logout}>Logout</button></li>
+      </>
+    );
+  };
+
+  return (
+    <nav className="navigation">
+      <div className="nav-brand">
+        <h1>🏟️ Bandobasta</h1>
+      </div>
+      <ul className="nav-menu">
+        {renderMenuItems()}
+      </ul>
+    </nav>
+  );
+};
+
+export default Navigation;</pre>
+                </div>
+            </div>
+
+            <h3>🔒 Protected Route Component</h3>
+            
+            <div class="endpoint">
+                <h4>Route Protection</h4>
+                <div class="code-block">
+<pre>// components/ProtectedRoute.jsx
+import React from 'react';
+import { useAuth } from '../hooks/useAuth';
+import { Navigate } from 'react-router-dom';
+
+const ProtectedRoute = ({ children, requiredRoles = [] }) => {
+  const { isAuthenticated, hasRole } = useAuth();
+
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+
+  if (requiredRoles.length > 0) {
+    const hasRequiredRole = requiredRoles.some(role => hasRole(role));
+    if (!hasRequiredRole) {
+      return <Navigate to="/unauthorized" replace />;
+    }
+  }
+
+  return children;
+};
+
+export default ProtectedRoute;</pre>
+                </div>
+            </div>
+
+            <h3>📱 React Hook for Authentication</h3>
+            
+            <div class="endpoint">
+                <h4>useAuth Hook</h4>
+                <div class="code-block">
+<pre>// hooks/useAuth.js
+import { useState, useEffect, createContext, useContext } from 'react';
+import authService from '../services/authService';
+
+const AuthContext = createContext();
+
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
+};
+
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const initAuth = async () => {
+      try {
+        if (authService.isAuthenticated()) {
+          const userDetails = localStorage.getItem('userDetails');
+          if (userDetails) {
+            setUser(JSON.parse(userDetails));
+            setIsAuthenticated(true);
+          }
+        }
+      } catch (error) {
+        console.error('Auth initialization error:', error);
+        authService.logout();
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    initAuth();
+  }, []);
+
+  const login = async (identifier, password) => {
+    try {
+      const userData = await authService.login(identifier, password);
+      setUser(userData);
+      setIsAuthenticated(true);
+      return userData;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const logout = () => {
+    authService.logout();
+    setUser(null);
+    setIsAuthenticated(false);
+  };
+
+  const hasRole = (role) => {
+    return authService.hasRole(role);
+  };
+
+  const value = {
+    user,
+    isAuthenticated,
+    loading,
+    login,
+    logout,
+    hasRole
+  };
+
+  return (
+    <AuthContext.Provider value={value}>
+      {children}
+    </AuthContext.Provider>
+  );
+};</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="examples">
+            <h2>💡 Complete Examples</h2>
+            
+            <h3>🔐 Complete Authentication Flow</h3>
+            
+            <div class="endpoint">
+                <h4>Login Component</h4>
+                <div class="code-block">
+<pre>// components/Login.jsx
+import React, { useState } from 'react';
+import { useAuth } from '../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
+
+const Login = () => {
+  const [identifier, setIdentifier] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+
+    try {
+      await login(identifier, password);
+      navigate('/dashboard');
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="login-container">
+      <h2>Login to Bandobasta</h2>
+      {error && <div className="error">{error}</div>}
+      
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>Username/Email:</label>
+          <input
+            type="text"
+            value={identifier}
+            onChange={(e) => setIdentifier(e.target.value)}
+            required
+          />
+        </div>
+        
+        <div className="form-group">
+          <label>Password:</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        
+        <button type="submit" disabled={loading}>
+          {loading ? 'Logging in...' : 'Login'}
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default Login;</pre>
+                </div>
+            </div>
+
+            <h3>🏟️ Venue Management Example</h3>
+            
+            <div class="endpoint">
+                <h4>Venue Creation Component</h4>
+                <div class="code-block">
+<pre>// components/owner/CreateVenue.jsx
+import React, { useState } from 'react';
+import apiService from '../../services/apiService';
+import { useNavigate } from 'react-router-dom';
+
+const CreateVenue = () => {
+  const [venueData, setVenueData] = useState({
+    name: '',
+    address: '',
+    city: '',
+    latitude: '',
+    longitude: '',
+    contactPhone: '',
+    contactEmail: '',
+    description: '',
+    bookingFee: '',
+    minimumPayment: ''
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+
+    try {
+      const response = await apiService.createVenue(venueData);
+      if (response.success) {
+        navigate('/owner/venues');
+      }
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setVenueData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  return (
+    <div className="create-venue">
+      <h2>Create New Venue</h2>
+      {error && <div className="error">{error}</div>}
+      
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>Venue Name:</label>
+          <input
+            type="text"
+            name="name"
+            value={venueData.name}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        
+        <div className="form-group">
+          <label>Address:</label>
+          <input
+            type="text"
+            name="address"
+            value={venueData.address}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        
+        <div className="form-group">
+          <label>City:</label>
+          <input
+            type="text"
+            name="city"
+            value={venueData.city}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        
+        <div className="form-group">
+          <label>Booking Fee:</label>
+          <input
+            type="number"
+            name="bookingFee"
+            value={venueData.bookingFee}
+            onChange={handleChange}
+            min="0"
+            step="0.01"
+            required
+          />
+        </div>
+        
+        <div className="form-group">
+          <label>Minimum Payment:</label>
+          <input
+            type="number"
+            name="minimumPayment"
+            value={venueData.minimumPayment}
+            onChange={handleChange}
+            min="0"
+            step="0.01"
+            required
+          />
+        </div>
+        
+        <button type="submit" disabled={loading}>
+          {loading ? 'Creating...' : 'Create Venue'}
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default CreateVenue;</pre>
+                </div>
+            </div>
+
+            <h3>📅 Booking Creation Example</h3>
+            
+            <div class="endpoint">
+                <h4>Booking Component</h4>
+                <div class="code-block">
+<pre>// components/BookingForm.jsx
+import React, { useState, useEffect } from 'react';
+import apiService from '../services/apiService';
+
+const BookingForm = ({ venueId, resourceId, activityId }) => {
+  const [bookingData, setBookingData] = useState({
+    venueResourceId: resourceId,
+    venueActivityId: activityId,
+    bookingDate: '',
+    startTime: '',
+    endTime: '',
+    participants: []
+  });
+  const [pricingCategories, setPricingCategories] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    // Load pricing categories for the activity
+    const loadPricingCategories = async () => {
+      try {
+        const response = await apiService.request(`/api/venues/activities/${activityId}/pricing-categories`);
+        if (response.success) {
+          setPricingCategories(response.data);
+        }
+      } catch (error) {
+        console.error('Error loading pricing categories:', error);
+      }
+    };
+
+    loadPricingCategories();
+  }, [activityId]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+
+    try {
+      const response = await apiService.createBooking(bookingData);
+      if (response.success) {
+        // Redirect to payment or booking confirmation
+        console.log('Booking created:', response.data);
+      }
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const addParticipant = () => {
+    setBookingData(prev => ({
+      ...prev,
+      participants: [
+        ...prev.participants,
+        { pricingCategoryId: '', quantity: 1 }
+      ]
+    }));
+  };
+
+  const updateParticipant = (index, field, value) => {
+    setBookingData(prev => ({
+      ...prev,
+      participants: prev.participants.map((p, i) => 
+        i === index ? { ...p, [field]: value } : p
+      )
+    }));
+  };
+
+  return (
+    <div className="booking-form">
+      <h2>Create Booking</h2>
+      {error && <div className="error">{error}</div>}
+      
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>Date:</label>
+          <input
+            type="date"
+            value={bookingData.bookingDate}
+            onChange={(e) => setBookingData(prev => ({ ...prev, bookingDate: e.target.value }))}
+            required
+          />
+        </div>
+        
+        <div className="form-group">
+          <label>Start Time:</label>
+          <input
+            type="time"
+            value={bookingData.startTime}
+            onChange={(e) => setBookingData(prev => ({ ...prev, startTime: e.target.value }))}
+            required
+          />
+        </div>
+        
+        <div className="form-group">
+          <label>End Time:</label>
+          <input
+            type="time"
+            value={bookingData.endTime}
+            onChange={(e) => setBookingData(prev => ({ ...prev, endTime: e.target.value }))}
+            required
+          />
+        </div>
+        
+        <div className="participants">
+          <h3>Participants</h3>
+          {bookingData.participants.map((participant, index) => (
+            <div key={index} className="participant-row">
+              <select
+                value={participant.pricingCategoryId}
+                onChange={(e) => updateParticipant(index, 'pricingCategoryId', e.target.value)}
+                required
+              >
+                <option value="">Select Category</option>
+                {pricingCategories.map(cat => (
+                  <option key={cat.id} value={cat.id}>
+                    {cat.name} - ${cat.price}/hour
+                  </option>
+                ))}
+              </select>
+              
+              <input
+                type="number"
+                value={participant.quantity}
+                onChange={(e) => updateParticipant(index, 'quantity', parseInt(e.target.value))}
+                min="1"
+                required
+              />
+            </div>
+          ))}
+          
+          <button type="button" onClick={addParticipant}>
+            Add Participant
+          </button>
+        </div>
+        
+        <button type="submit" disabled={loading}>
+          {loading ? 'Creating Booking...' : 'Create Booking'}
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default BookingForm;</pre>
+                </div>
+            </div>
+
+            <div class="success">
+                <h3>🎉 You're All Set!</h3>
+                <p>This comprehensive documentation covers everything your frontend developer needs to integrate with your Bandobasta Activity Booking API. The examples provided show real-world usage patterns and best practices for building a robust venue booking system.</p>
+                
+                <h4>Next Steps:</h4>
+                <ol>
+                    <li>Set up your React project with the provided components</li>
+                    <li>Configure the authentication flow</li>
+                    <li>Implement role-based navigation</li>
+                    <li>Test all endpoints with the examples</li>
+                    <li>Build your venue booking marketplace!</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
